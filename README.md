@@ -76,7 +76,6 @@ Clone the repository and install the requirements
 ```sh
 git clone https://github.com/alphatechnolog/alacritty2ghostty.git --depth=1 alacritty2ghostty
 cd alacritty2ghostty
-python3 -m pip install -r requirements.txt
 ./alacritty2ghostty --help
 ```
 
