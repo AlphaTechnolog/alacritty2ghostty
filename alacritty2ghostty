@@ -8,6 +8,7 @@ import sys
 import http.client
 import argparse
 import tomllib
+import uuid
 
 from urllib.parse import urlparse
 
@@ -154,7 +155,7 @@ def from_url(url: str) -> str:
     finally:
         conn.close()
 
-    filename = generate_random_string(length=5) + '.tmp'
+    filename = '{}.tmp'.format(uuid.uuid4())
 
     try:
         with open(filename, 'w') as file:
