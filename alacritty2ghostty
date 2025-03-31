@@ -12,6 +12,12 @@ import uuid
 
 from urllib.parse import urlparse
 
+try:
+    import yaml
+    pyyaml_available = True
+except ImportError:
+    pyyaml_available = False
+
 palette_colors = [
     'black', 'red', 'green', 'yellow',
     'blue', 'magenta', 'cyan', 'white'
@@ -99,7 +105,19 @@ def convert2ghostty(data: dict, comments: bool) -> str:
 
 def read_file(filename: str, comments: bool):
     with open(filename, 'rb') as stream:
-        data = tomllib.load(stream)
+        try:
+            data = tomllib.load(stream)
+        except Exception:
+            if pyyaml_available:
+                stream.seek(0)
+                try:
+                    data = yaml.safe_load(stream)
+                except:
+                    sys.stderr.write('Unable to parse file, tried both toml and yaml\n')
+                    sys.exit(1)
+            else:
+                sys.stderr.write('Unable to parse toml file.\n')
+                sys.exit(1)
 
     print(convert2ghostty(data, comments=comments))
 
