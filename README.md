@@ -34,6 +34,9 @@ palette = 14=#95aec7
 palette = 15=#f3f4f5
 ```
 
+> [!TIP]
+> If you have installed on your system the pyyaml library, the script will try to parse toml and if not possible, will try to use yaml as well.
+
 ### From network
 
 ```sh
